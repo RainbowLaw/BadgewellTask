@@ -1,0 +1,87 @@
+<h1 class="display-3">Submit a Gun</h1>
+
+<form #f="ngForm" (ngSubmit)="submit(f)">
+  <div ngModelGroup="contact" #contact="ngModelGroup">
+      <div class="form-group">
+          <label for="gunName">Gun name</label>
+          <input 
+          required  
+          maxlength="20"  
+          ngModel 
+          name="gunName" 
+          #gunName="ngModel" 
+          (change)="log(gunName)" 
+          id="gunName" 
+          type="text" 
+          class="form-control">
+        <div 
+          class="alert alert-danger" 
+          *ngIf="gunName.touched && !gunName.valid" >
+          <div *ngIf="gunName.errors.required">
+            Gun name is required.
+          </div>
+        </div>
+        </div>
+        
+    <label for="price">Pricing</label>
+    <input 
+    required    
+    ngModel 
+    pattern="\d*"
+    name="price" 
+    #price="ngModel" 
+    (change)="log(price)" 
+    id="price" 
+    type="text" 
+    class="form-control">
+  <div 
+    class="alert alert-danger" 
+    *ngIf="price.touched && !price.valid" >
+    <div *ngIf="price.errors.required">
+      Price is required.
+    </div>
+    <div *ngIf="price.errors.pattern">
+      Only numbers are allowed.
+    </div>
+  </div>
+  </div>
+  <div class="form-group">
+    <label for="weight">Weight</label>
+    <select ngModel name="weight" id="weight" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let weight of weights" [value]="weight.id">{{ weight.name }}</option>
+    </select>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input required type="checkbox" ngModel name="doesAgree"> Are you sure you want to add the gun.
+    </label>
+  </div>
+  <p>
+      {{ f.value | json }}
+  </p>
+  <button class="btn btn-primary" [disabled]="!f.valid" (click)="submit(f)">Submit</button>
+</form>
+<br />
+<h1 class="display-3">View your Guns</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Gun Name</th>
+      <th>Price</th> 
+      <th>Weight</th>
+    </tr>
+    </thead>
+    <tr>
+        <td *ngFor="let item of collection$ | async">{{ item.$value }}
+        </td>
+    </tr>
+    <tr>
+        <td *ngFor="let item of collection$ | async">{{ item.value }}
+        </td>
+    </tr>
+    <tr>
+        <td *ngFor="let item of collection$ | async">{{ item }}
+        </td>
+    </tr>
+</table>
