@@ -4,4 +4,4 @@ This project is currently missing Angular Material and Firebase Authentication t
 
 ## Bugs
 
-When wanting to view the database there I can't access nodes of the object. Therefore table not generated. Currently working on it.
+When wanting to view the database the table is awkward because <tr> is generated for each element.
