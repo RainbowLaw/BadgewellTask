@@ -47,7 +47,7 @@
   </div>
   <div class="form-group">
     <label for="weight">Weight</label>
-    <select ngModel name="weight" id="weight" class="form-control">
+    <select ngModel #weight="ngModel" name="weight" id="weight" class="form-control">
       <option value=""></option>
       <option *ngFor="let weight of weights" [value]="weight.id">{{ weight.name }}</option>
     </select>
@@ -57,10 +57,10 @@
       <input required type="checkbox" ngModel name="doesAgree"> Are you sure you want to add the gun.
     </label>
   </div>
-  <p>
+  <!-- <p>
       {{ f.value | json }}
-  </p>
-  <button class="btn btn-primary" [disabled]="!f.valid" (click)="submit(f)">Submit</button>
+  </p> -->
+  <button class="btn btn-primary" [disabled]="!f.valid" (click)="submit(gunName.value, price.value, weight.value)">Submit</button>
 </form>
 <br />
 <h1 class="display-3">View your Guns</h1>
@@ -73,15 +73,10 @@
     </tr>
     </thead>
     <tr>
-        <td *ngFor="let item of collection$ | async">{{ item.$value }}
-        </td>
-    </tr>
-    <tr>
-        <td *ngFor="let item of collection$ | async">{{ item.value }}
-        </td>
-    </tr>
-    <tr>
-        <td *ngFor="let item of collection$ | async">{{ item }}
+        <td *ngFor="let item of collection2$ | async; let i = index" >
+          <h4>
+          {{ item }}
+          </h4>
         </td>
     </tr>
 </table>

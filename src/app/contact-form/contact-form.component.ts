@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+import firebase = require('../../../node_modules/firebase');
 
 @Component({
   selector: 'contact-form',
@@ -7,22 +8,12 @@ import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angular
   styleUrls: ['./contact-form.component.css']
 })
 export class ContactFormComponent {
-  collection$: AngularFireObject<{}>;
   collection1$: AngularFireList<{}>;
+  collection2$;
 
-  constructor(private db: AngularFireDatabase ) {
+  constructor(public db: AngularFireDatabase ) {
     this.collection1$ = db.list('/collection');
-    this.collection$ = db.object('/collection').valueChanges().subscribe(snapshot => {
-    console.log(snapshot)
-    console.log("________________-------________________")
-  });
-
-
-
-
-
-
-
+    this.collection2$ = db.list('/collection').valueChanges()
   }
 
   add(collection: HTMLInputElement){
@@ -35,11 +26,16 @@ export class ContactFormComponent {
     {id: 2, name: 'Moderate'},
     {id: 3, name: 'Heavy'},  
   ];
+
   log(x) { console.log(x); }
 
-  submit(object) {
-      console.log(object);
-      console.log("Done");
-      this.collection1$.push(object);
+  submit(a,b,c) {
+      console.log(a);
+      console.log(b);
+      console.log(c);
+      console.log("Submitted");
+      this.collection1$.push(a);
+      this.collection1$.push(b);
+      this.collection1$.push(c);
   }
 }
